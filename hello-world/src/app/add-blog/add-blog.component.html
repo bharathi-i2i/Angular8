@@ -14,6 +14,10 @@
             <label for="Author">Author</label>
             <input type="text" name="author" class="form-control" placeholder="Author Name"  [(ngModel)]="author">
         </div>
+        <div class="form-group">
+            <label for="Image">Add Featured Image:</label>
+            <input (change)="uploadImage($event)" type="file" name="featured-image" class="form-control" placeholder=""  [(ngModel)]="featuredImage">
+        </div>
         <button type="button" (click)="addBlog()" class="btn btn-primary"  >Submit</button>
     </form>
 </div>

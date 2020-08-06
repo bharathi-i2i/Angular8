@@ -1,8 +1,9 @@
 <div class="container">
-    <h2 class="text-center pb-2">{{blog.heading | async}}</h2>
+    <h2 class="text-center pb-2">{{blog.heading }}</h2>
     <div>
         <h5 style="float:left;"> Author: {{blog.author}}</h5>
         <h5 style="float:right;">{{blog.date | date }}</h5>
+        <img src="{{blog.featured_image }}" alt="Girl in a jacket" width="500" height="600">
     </div>
     <p class="p-5"> {{blog.content}} </p>
 </div>

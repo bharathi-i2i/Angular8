@@ -9,9 +9,11 @@ import { Router } from '@angular/router';
 })
 export class AdminComponent implements OnInit {
   public name:string = '';
+  public email :string = '';
   public password:string = '';
   public role:string = '';
   public status:boolean = true;
+  public userData = {};
   constructor(
     private blogService: BlogService,
     private router: Router,
@@ -19,11 +21,21 @@ export class AdminComponent implements OnInit {
   blogs = [];
 
   ngOnInit(): void {
+    this.getData()
   }
-
+  getData () {
+      return this.userData = {
+      name :this.name,
+      email : this.email,
+      password : this.password,
+      role : this.role,
+      status : this.status
+   }
+  }
+  
   addUser(){
-    if(this.name && this.password && this.role != '') {
-      this.blogService.addUser(this.name,this.password,this.role,this.status).subscribe(data => {
+    if(this.getData != null) {
+      this.blogService.addUser(this.getData()).subscribe(data => {
         console.log(data);
         this.router.navigateByUrl('/users');
 

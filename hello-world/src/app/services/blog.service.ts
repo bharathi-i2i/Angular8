@@ -6,6 +6,8 @@ import { CommentReply } from '../model/Reply';
 import { getDateTime } from '../common/functions';
 import { map, catchError } from 'rxjs/operators';
 import { ThrowStmt } from '@angular/compiler';
+import { EmailValidator } from '@angular/forms';
+import { Environment } from '../../environments/environment.dev';
 
 export interface Blog {
   id:number,
@@ -13,7 +15,8 @@ export interface Blog {
   content: string,
   comments: BlogComment[],
   author: string,
-  date: string
+  date: string,
+  featuredImage: string
 }
 @Injectable({
   providedIn: 'root'
@@ -23,10 +26,8 @@ export interface Blog {
 export class BlogService {
 
   public blogs: Blog[]
-
   public comments : BlogComment[];
-
-  public baseUrl = 'http://localhost/api';
+  public baseUrl = Environment.baseUrl;
   dbBlogs
   users
   constructor(
@@ -91,33 +92,36 @@ export class BlogService {
     }))
   }
 
-  addBlog(title,content,author) : Observable<Object> {
+  addBlog(title,content,author,featuredImage) : Observable<Object> {
     let blog = { 
       heading: title, 
       content: content, 
       author : author  , 
       date: getDateTime(),
+      featured_image : featuredImage
     }
     return this.http.post(`${this.baseUrl}/add-blog`,{data: blog})
   }
 
-  addUser(name,password,role,status) : Observable<Object> {
+  addUser(userData) : Observable<Object> {
     let user = { 
-      username: name, 
-      password: password, 
-      role : role  , 
-      status: status,
+      username: userData.name, 
+      email : userData.email,
+      password: userData.password, 
+      role : {
+        name:userData.role
+      }, 
+      status: userData.status,
     }
-    return this.http.post(`${this.baseUrl}/add-user`,{data: user})
+    return this.http.post(`${this.baseUrl}/signup`,user)
   }
 
   userLogin(uname,password) : Observable<Object> {
     let user = { 
-      uname: uname, 
+      username: uname, 
       password: password,
     }
-    console.log(user);
-    return this.http.post(`${this.baseUrl}/get-user`,{data: user})
+    return this.http.post(`${this.baseUrl}/signin`,user)
   }
 
   addComment(id,comment) {
