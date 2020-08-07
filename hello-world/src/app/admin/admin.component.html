@@ -14,8 +14,13 @@
             <input type="password" name="password" class="form-control" placeholder="Enter password" [(ngModel)]="password">
         </div>
         <div class="form-group">
-            <label for="role">Role</label>
-            <input type="text" name="role" class="form-control" placeholder="User Role"  [(ngModel)]="role">
+          <label for="role">Role</label>
+          <select id="cars" name="role" class="form-control" [(ngModel)]="role">
+            <option value="Super-admin">Super-admin</option>
+            <option value="Admin">Admin</option>
+            <option value="Moderator">Moderator</option>
+            <option value="Author">Author</option>
+          </select>
         </div>
         <button type="button" (click)="addUser()" class="btn btn-primary"  >Submit</button>
     </form>

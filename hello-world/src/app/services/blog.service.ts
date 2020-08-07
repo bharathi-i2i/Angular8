@@ -35,11 +35,9 @@ export class BlogService {
   ) { }
 
   getAll(): Observable<any[]> {
-    return this.http.get(`${this.baseUrl}/list`).pipe(
+    return this.http.get(`${this.baseUrl}/blog/all`).pipe(
       map((res) => {
-        this.dbBlogs = res['data'];
-        //  this.addBlog('d','w','t')
-
+        this.dbBlogs = res;
         return this.dbBlogs;
     }))
   }
@@ -78,6 +76,15 @@ export class BlogService {
         return this.dbBlogs;
     }));
   }
+
+  getByUserId(id): Observable<any[]> {
+    return this.http.get(`${this.baseUrl}/get-user-by-id?ab=${id}`).pipe(
+      map((res) => {
+        this.users = res['data'];
+        return this.users;
+    }));
+  }
+
   private getCommentByBlogId(id): Observable<any[]> {
     return this.http.get(`${this.baseUrl}/get-comment-by-blog-id?ab=${id}`).pipe(
       map((res) => {
@@ -114,6 +121,16 @@ export class BlogService {
       status: userData.status,
     }
     return this.http.post(`${this.baseUrl}/signup`,user)
+  }
+
+  editUser(id,name,role) : Observable<Object> {
+    let user = { 
+      table : 'users',
+      id: id,
+      username: name, 
+      role : role, 
+    }
+    return this.http.put(`${this.baseUrl}/edit-user`,{data: user})
   }
 
   userLogin(uname,password) : Observable<Object> {
@@ -175,6 +192,15 @@ export class BlogService {
 
 
   }
+
+  deleteUser(user) {
+    let info = {
+      table : 'users',
+      id : user.id
+    }
+    return this.http.put(`${this.baseUrl}/delete-user`,{data: info})
+  }
+
   editComment(originalComment:BlogComment,newComment:string) {
     this.blogs.find(blog => blog.id == originalComment.blog_id).comments
     .find(comment => comment.id == originalComment.id).text = newComment;

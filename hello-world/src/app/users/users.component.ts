@@ -17,8 +17,14 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     this.getAllUsers()
   }
-  getAllUsers() {
+  public getAllUsers() {
     this.blogService.getUsers().subscribe(data => this.users = data)
   }
 
+  public removeUser(user){
+    this.blogService.deleteUser(user).subscribe(data => {
+      alert("user has been Deleted")
+      this.getAllUsers()
+    })
+  }
 }

@@ -1,13 +1,21 @@
+<h1>Users</h1>
 <div style="padding: 20px 0px;">
     <table>
         <tr>
           <th>Name</th>
           <th>Role</th>
-          <th>Status</th>
+          <th>Update</th>
+          <th>Delete</th>
         </tr>
         <tr *ngFor = "let user  of users">
           <td>{{user.username}}</td>
           <td>{{user.role}}</td>
+          <td [routerLink]="['/user',user.id]">
+            <button type="button" class="btn btn-primary">Edit</button>
+          </td>
+          <td>
+            <button type="button" (click)="removeUser(user)" class="btn btn-primary">Delete</button>
+          </td>
         </tr>
       </table>
 </div>
