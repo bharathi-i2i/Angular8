@@ -1,0 +1,32 @@
+.login-content {
+    background-color: #e2e2e2;
+    height: 100vh;
+}
+
+.login-parent {
+    height: 100%;
+    display: table;
+    margin: 0 auto;
+}
+
+.login-child {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.login-content .login-parent .login-child .card-header .nav-item .nav-link {
+    padding: 0.5rem 5rem;
+}
+
+.login-content .login-parent .login-child .card-body button {
+    height: 50px;
+}
+
+.login-content .login-parent .login-child .password-field {
+    margin-top: -10px;
+}
+
+input[type="text"], input[type="password"] {
+    height: 50px;
+    background-color : #d1d1d1;
+}
